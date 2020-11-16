@@ -48,7 +48,9 @@ docker exec -it skillcircle-db /bin/bash
 mongo
 show dbs
 ```
+There is also a demo page set up for some initial http requests on http://localhost:8080/
 
+I encourage you to install this setup on your local machine and experiment a little bit more!
 
 ## Links
 
@@ -59,3 +61,5 @@ Based on:
 - https://medium.com/@kahana.hagai/docker-compose-with-node-js-and-mongodb-dbdadab5ce0a
 - https://flaviocopes.com/node-mongodb/
 - https://mongoosejs.com/docs/promises.html
+- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+- https://docs.mongodb.com/drivers/node/fundamentals/crud
