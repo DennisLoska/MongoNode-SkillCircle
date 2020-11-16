@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill circle</title>
+</head>
+
+<body>
+    <div>
+        <button onclick="getCalls()">GET CALLS</button>
+        <button onclick="deleteCalls()">DELETE ALL CALLS</button>
+        <button onclick="createCall()">CREATE CALL</button>
+    </div>
+</body>
+<script>
+    const getCalls = async () => {
+        const response = await fetch('http://localhost:8080/calls')
+        const calls = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(calls);
+    }
+
+    const deleteCalls = async () => {
+        const response = await fetch('http://localhost:8080/delete_calls')
+        const calls = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(calls);
+    }
+
+    const createCall = async () => {
+        const response = await fetch('http://localhost:8080/create_call', {
+            method: 'POST',
+            body: JSON.stringify({
+                transcription: "Hello dear node skill circle",
+                phone_number: "+49123456789",
+                callback: true,
+                country: "DE"
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const newCall = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(newCall);
+    }
+</script>
+
+</html>

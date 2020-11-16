@@ -1,0 +1,24 @@
+{
+  "name": "skill-circle",
+  "version": "1.0.0",
+  "description": "MongoDB Node.js skill circle",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Dennis Loska",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "ejs": "^3.1.5",
+    "express": "~4.14.0",
+    "mongoose": "~4.13.1",
+    "morgan": "~1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}

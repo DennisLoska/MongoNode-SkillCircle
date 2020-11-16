@@ -1,0 +1,30 @@
+version: "3"
+services:
+  node-skill-circle:
+    container_name: skillcircle-app
+    build: .
+    ports:
+      - "8080:5000"
+    depends_on:
+      - skillcircle-db
+      - mongodb-express
+
+  skillcircle-db:
+    container_name: skillcircle-db
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - data-volume:/data/db
+
+  mongodb-express:
+    image: mongo-express
+    container_name: skillcircle-mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: "ambiance"
+      ME_CONFIG_MONGODB_SERVER: "skillcircle-db"
+
+volumes:
+  data-volume:
