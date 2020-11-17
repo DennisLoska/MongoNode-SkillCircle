@@ -43,11 +43,10 @@
     }
 
     const updateCall = async () => {
-        const response = await fetch('http://localhost:8080/update_call', {
+        const response = await fetch('http://localhost:8080/update_call?id=5fb2ed81a48ec60011c39b12', {
             method: 'POST',
             body: JSON.stringify({
-                id: '5fb2ed81a48ec60011c39b12',
-                message: "This is the updated transcription!",
+                transcription: "This is the updated transcription!"
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
