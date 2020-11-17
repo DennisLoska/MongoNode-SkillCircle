@@ -9,26 +9,14 @@
 
 <body>
     <div>
-        <button onclick="getCalls()">GET CALLS</button>
-        <button onclick="deleteCalls()">DELETE ALL CALLS</button>
         <button onclick="createCall()">CREATE CALL</button>
+        <button onclick="getCalls()">GET CALLS</button>
+        <button onclick="updateCall()">UPDATE CALL</button>
+        <button onclick="deleteCalls()">DELETE ALL CALLS</button>
     </div>
 </body>
+
 <script>
-    const getCalls = async () => {
-        const response = await fetch('http://localhost:8080/calls')
-        const calls = await response.json();
-        const domBody = document.getElementsByTagName('body')[0];
-        domBody.append(calls);
-    }
-
-    const deleteCalls = async () => {
-        const response = await fetch('http://localhost:8080/delete_calls')
-        const calls = await response.json();
-        const domBody = document.getElementsByTagName('body')[0];
-        domBody.append(calls);
-    }
-
     const createCall = async () => {
         const response = await fetch('http://localhost:8080/create_call', {
             method: 'POST',
@@ -46,6 +34,37 @@
         const domBody = document.getElementsByTagName('body')[0];
         domBody.append(newCall);
     }
+
+    const getCalls = async () => {
+        const response = await fetch('http://localhost:8080/get_calls')
+        const calls = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(calls);
+    }
+
+    const updateCall = async () => {
+        const response = await fetch('http://localhost:8080/update_call', {
+            method: 'POST',
+            body: JSON.stringify({
+                id: '5fb2ed81a48ec60011c39b12',
+                message: "This is the updated transcription!",
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const updatedCall = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(updatedCall);
+    }
+
+    const deleteCalls = async () => {
+        const response = await fetch('http://localhost:8080/delete_calls')
+        const calls = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(calls);
+    }
+
 </script>
 
 </html>
