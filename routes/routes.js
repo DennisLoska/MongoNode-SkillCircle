@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
+const { request } = require('express');
 const CallModel = require('../models/call');
+const UserModel = require('../models/user');
 
 module.exports = (app) => {
   // render main page (optional)
@@ -97,5 +99,18 @@ module.exports = (app) => {
     } catch (error) {
       return res.status(500).send('Failed to create new call.');
     }
+  });
+
+  // CREATE user
+  app.post('/create_user', async (req, res) => {
+      const newUser = new UserModel(req.body);
+
+      // always catch potential promise errors
+      try {
+        await newUser.save();
+        return res.status(200).json(JSON.stringify(newUser));
+      } catch (error) {
+        return res.status(500).send('Failed to create new call.');
+      }
   });
 };
