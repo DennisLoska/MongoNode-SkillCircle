@@ -10,6 +10,7 @@
 <body>
     <div>
         <button onclick="createCall()">CREATE CALL</button>
+        <button onclick="createUser()">CREATE USER</button>
         <button onclick="getCalls()">GET CALLS</button>
         <button onclick="updateCall()">UPDATE CALL</button>
         <button onclick="deleteCalls()">DELETE ALL CALLS</button>
@@ -64,6 +65,23 @@
         domBody.append(calls);
     }
 
+    const createUser = async () => {
+        const response = await fetch('http://localhost:8080/create_user', {
+            method: 'POST',
+            body: JSON.stringify({
+                subtenant_id: 'praxis-test',
+                email: 'user@aaron.de',
+                username: 'bmg'
+            }),
+
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const newCall = await response.json();
+        const domBody = document.getElementsByTagName('body')[0];
+        domBody.append(newCall);
+    }
 </script>
 
 </html>
