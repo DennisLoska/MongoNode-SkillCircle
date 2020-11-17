@@ -28,13 +28,12 @@ module.exports = (app) => {
       // always catch potential promise errors
       try {
         await newCall.save();
+        const call = await CallModel.findById(_id);
+        console.log(`Created a call: ${JSON.stringify(call)}`);
+        return res.status(200).json(JSON.stringify(call));
       } catch (error) {
         return res.status(500).send('Failed to create new call.');
       }
-
-      const call = await CallModel.findById(_id);
-      console.log(`Created a call: ${JSON.stringify(call)}`);
-      return res.status(200).json(JSON.stringify(call));
     }
     return res.status(400).send('Bad request parameter.');
   });
@@ -46,12 +45,12 @@ module.exports = (app) => {
     // always catch potential promise errors
     try {
       calls = await CallModel.find();
+      console.log('Read all calls.');
+      return res.status(200).json(JSON.stringify(calls));
     } catch (error) {
       return res.status(500).send('Failed to get calls.');
     }
 
-    console.log('Read all calls.');
-    return res.status(200).json(JSON.stringify(calls));
   });
 
   // update call
@@ -66,13 +65,12 @@ module.exports = (app) => {
       // always catch potential promise errors
       try {
         await CallModel.updateOne(query, updatedValue);
+        const call = await CallModel.findById(id);
+        console.log(`Updated call: ${JSON.stringify(call)}`);
+        return res.status(200).json(JSON.stringify(call));
       } catch (error) {
         return res.status(500).send('Failed to create new call.');
       }
-
-      const call = await CallModel.findById(id);
-      console.log(`Updated call: ${JSON.stringify(call)}`);
-      return res.status(200).json(JSON.stringify(call));
     }
     return res.status(400).send('Bad request parameter.');
   });
@@ -85,11 +83,10 @@ module.exports = (app) => {
     try {
       await CallModel.deleteMany();
       calls = await CallModel.find();
+      console.log('Deleted all calls.');
+      return res.status(200).json(JSON.stringify(calls));
     } catch (error) {
       return res.status(500).send('Failed to create new call.');
     }
-
-    console.log('Deleted all calls.');
-    return res.status(200).json(JSON.stringify(calls));
   });
 };
