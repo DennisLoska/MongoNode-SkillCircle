@@ -2,12 +2,12 @@
 const CallModel = require('../models/call');
 
 module.exports = (app) => {
-  // render mian page
+  // render main page (optional)
   app.get('/', (req, res) => {
     res.render('index.html');
   });
 
-  // create call
+  // CREATE call
   app.post('/create_call', async (req, res) => {
     // always validate request body/parameters
     const allowedParameters = ['transcription', 'phone_number', 'callback', 'country'];
@@ -38,7 +38,7 @@ module.exports = (app) => {
     return res.status(400).send('Bad request parameter.');
   });
 
-  // get calls
+  // READ calls
   app.get('/get_calls', async (req, res) => {
     let calls;
 
@@ -53,14 +53,23 @@ module.exports = (app) => {
 
   });
 
-  // update call
+  // UPDATE single call by id
   app.post('/update_call', async (req, res) => {
-    const { id, message } = req.body;
+    const allowedParameters = ['transcription', 'phone_number', 'callback', 'country'];
+    const sanitizedBody = {};
+    const { id } = req.query;
+
+    // sanitize request body
+    allowedParameters.forEach((allowedProp) => {
+      if (req.body.hasOwnProperty(allowedProp)) {
+        sanitizedBody[allowedProp] = req.body[allowedProp];
+      }
+    });
 
     // always validate request body/parameters
-    if (typeof message === 'string' && typeof id === 'string') {
+    if (typeof id === 'string') {
       const query = { _id: id };
-      const updatedValue = { $set: { transcription: message } };
+      const updatedValue = { $set: { transcription: sanitizedBody.transcription } };
 
       // always catch potential promise errors
       try {
@@ -75,7 +84,7 @@ module.exports = (app) => {
     return res.status(400).send('Bad request parameter.');
   });
 
-  // get calls
+  // DELETE all calls
   app.get('/delete_calls', async (req, res) => {
     let calls;
 
