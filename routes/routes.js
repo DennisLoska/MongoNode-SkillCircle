@@ -108,7 +108,7 @@ module.exports = (app) => {
       // always catch potential promise errors
       try {
         await newUser.save();
-        return res.status(200).json(JSON.stringify(newUser));
+        return res.status(200).json(newUser);
       } catch (error) {
         return res.status(500).send('Failed to create new call.');
       }
